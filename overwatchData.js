@@ -24,7 +24,6 @@
  * @param {string} playerId battle tag with # replaced with -
  */
 async function getPlayerData(playerId) {
-  console.log("playerId", playerId);
   const url = `https://overfast-api.tekrop.fr/players/${playerId}/summary`;
 
   const response = await fetch(url);
