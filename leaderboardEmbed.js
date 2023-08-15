@@ -24,41 +24,45 @@ async function leaderboardEmbeds(title, accounts, splitRoles) {
     for (const account of accounts) {
       rankPromises.push(getPlayerData(account.playerId));
     }
-    const ranks = await Promise.all(rankPromises);
 
+    console.log("rankPromises", rankPromises);
+
+    const ranks = await Promise.allSettled(rankPromises);
+    console.log("ranks", ranks);
     const rankedAccounts = accounts.map((a, i) => ({
       ...a,
       rank: ranks[i],
     }));
 
+    console.log("rankedAccounts", rankedAccounts);
+
     const roles = ["tank", "damage", "support"];
-      const embeds = [];
+    const embeds = [];
 
-      for (const role of roles) {
-        const embed = new EmbedBuilder()
-          .setTitle(title + ": " + role)
-          .setTimestamp();
+    for (const role of roles) {
+      const embed = new EmbedBuilder()
+        .setTitle(title + ": " + role)
+        .setTimestamp();
 
-        rankedAccounts.sort((a, b) => {
-          return getSkillRating(a.rank?.[role]) < getSkillRating(b.rank?.[role])
-            ? 1
-            : -1;
+      rankedAccounts.sort((a, b) => {
+        return getSkillRating(a.rank?.[role]) < getSkillRating(b.rank?.[role])
+          ? 1
+          : -1;
+      });
+
+      for (let i = 0; i < rankedAccounts.length; i++) {
+        const acc = rankedAccounts[i];
+        embed.addFields({
+          name: posString(i + 1),
+          value: `${acc.battleTag} - ${roleRankString(acc.rank?.[role])}`,
         });
-
-        for (let i = 0; i < rankedAccounts.length; i++) {
-          const acc = rankedAccounts[i];
-          embed.addFields({
-            name: posString(i + 1),
-            value: `${acc.battleTag} - ${roleRankString(acc.rank?.[role])}`,
-          });
-        }
-
-        embeds.push(embed);
       }
-      return embeds;
-      
+
+      embeds.push(embed);
+    }
+    return embeds;
+
     if (splitRoles) {
-      
     } else {
       const embed = new EmbedBuilder().setTitle(title).setTimestamp();
 

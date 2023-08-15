@@ -25,17 +25,21 @@ function stopUpdates() {
 async function update(client) {
   const all = await getAllLeaderboardWithAccounts();
 
+  console.log(" xddddddddddddddd");
   for (const lb of all) {
     const guild = await client.guilds.fetch(lb.guildId);
+
     const channel = await guild.channels.fetch(lb.channelId);
+
     if (channel === null || !channel.isTextBased()) continue;
+
     const embeds = await leaderboardEmbeds(
       embedTitle(lb.title, guild.name),
       lb.Account
     );
 
-    console.log("LOS EMBEDS " + JSON.stringify(embeds));
-
+    console.log("xsssssssssssssssssssssssssssssssssss");
+    console.log(" embeds ", embeds);
     await channel.messages.edit(lb.messageId, { embeds });
   }
 }
