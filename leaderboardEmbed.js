@@ -21,17 +21,25 @@ async function leaderboardEmbeds(title, accounts, splitRoles) {
     return [embed];
   } else {
     const rankPromises = [];
-    for (const account of accounts) {
-      rankPromises.push(getPlayerData(account.playerId));
+    const ranksArray = [];
+    // for (const account of accounts) {
+    for (let i = 0; i < accounts.length; i++) {
+      const account = accounts[i];
+      // rankPromises.push(getPlayerData(account.playerId));
+
+      setTimeout(async () => {
+        console.log("Delayed for 1 second.");
+        const rank = await getPlayerData(account.playerId);
+        ranksArray.push(rank);
+        console.log("rank", rank);
+      }, 1000 * i);
     }
 
-    console.log("rankPromises", rankPromises);
-
     const ranks = await Promise.allSettled(rankPromises);
-    console.log("ranks", ranks);
+
     const rankedAccounts = accounts.map((a, i) => ({
       ...a,
-      rank: ranks[i],
+      rank: ranksArray[i],
     }));
 
     console.log("rankedAccounts", rankedAccounts);

@@ -25,7 +25,6 @@ async function getLeaderboardWithAccounts({ channelId }) {
 
   const body = await response.json();
 
-  console.log(" body-- " + JSON.stringify(body));
   return body[0];
 }
 
@@ -52,7 +51,6 @@ async function getAllLeaderboardWithAccounts() {
 
   const body = await response.json();
 
-  console.log(" body-- " + JSON.stringify(body));
   return body;
 }
 

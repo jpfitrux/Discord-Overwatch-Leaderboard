@@ -25,7 +25,6 @@ function stopUpdates() {
 async function update(client) {
   const all = await getAllLeaderboardWithAccounts();
 
-  console.log(" xddddddddddddddd");
   for (const lb of all) {
     const guild = await client.guilds.fetch(lb.guildId);
 
@@ -38,8 +37,6 @@ async function update(client) {
       lb.Account
     );
 
-    console.log("xsssssssssssssssssssssssssssssssssss");
-    console.log(" embeds ", embeds);
     await channel.messages.edit(lb.messageId, { embeds });
   }
 }
