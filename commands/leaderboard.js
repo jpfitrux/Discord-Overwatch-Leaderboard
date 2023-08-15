@@ -302,7 +302,7 @@ async function update(interaction) {
       embedTitle(leaderboard.title, interaction.guild.name),
       leaderboard.Account
     );
-    console.log("LOS EMBEDS " + embeds);
+    console.log("LOS EMBEDS " + JSON.stringify(embeds));
     await interaction.channel.messages.edit(leaderboard.messageId, { embeds });
   } catch (error) {
     console.error(error);
