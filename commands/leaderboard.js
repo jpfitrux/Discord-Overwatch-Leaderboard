@@ -287,8 +287,6 @@ async function update(interaction) {
     channelId: interaction.channelId,
   });
 
-  console.log(" HERE!!! " + JSON.stringify(leaderboard));
-
   if (!leaderboard) {
     return interaction.reply({
       content: "This channel doesn't have an active leaderboard.",
@@ -302,7 +300,7 @@ async function update(interaction) {
       embedTitle(leaderboard.title, interaction.guild.name),
       leaderboard.Account
     );
-    console.log("LOS EMBEDS " + JSON.stringify(embeds));
+
     await interaction.channel.messages.edit(leaderboard.messageId, { embeds });
   } catch (error) {
     console.error(error);

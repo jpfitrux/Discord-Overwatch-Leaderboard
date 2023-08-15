@@ -33,6 +33,9 @@ async function update(client) {
       embedTitle(lb.title, guild.name),
       lb.Account
     );
+
+    console.log("LOS EMBEDS " + JSON.stringify(embeds));
+
     await channel.messages.edit(lb.messageId, { embeds });
   }
 }
